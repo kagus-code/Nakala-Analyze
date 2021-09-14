@@ -12,6 +12,7 @@ from django.http.response import Http404
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+
 from rest_framework import status
 from .models import *
 from .serializers import *
@@ -30,6 +31,10 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+
+
+
+
 
 @permission_classes([IsAuthenticated])
 class UserProfileApiView(APIView):
