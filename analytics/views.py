@@ -11,7 +11,7 @@ from django.http.response import Http404
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-
+from .email import send_activation_email
 
 from rest_framework import status
 from .models import *
@@ -42,6 +42,9 @@ class RegisterApiView(generics.CreateAPIView):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
+            name = request.data['username']
+            email =  request.data['email']
+            send_activation_email(name,email)
             user_data = serializer.data
             response = {
                 "data": {
