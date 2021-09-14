@@ -2,4 +2,4 @@ Hello {{name}}
 Welcome  to Nakala Analytics 
 We have seen you have signed up for our application
 
-Please click http://127.0.0.1:8000/api/users/activate/{{name}}/ here to confirm your email address
+Please click http://127.0.0.1:8000/api/users/activate/{{id}}/ here to confirm your email address

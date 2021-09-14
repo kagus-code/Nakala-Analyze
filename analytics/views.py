@@ -44,7 +44,9 @@ class RegisterApiView(generics.CreateAPIView):
             serializer.save()
             name = request.data['username']
             email =  request.data['email']
-            send_activation_email(name,email)
+            user = User.objects.get(username=name)
+            id = user.id
+            send_activation_email(name,email,id)
             user_data = serializer.data
             response = {
                 "data": {
@@ -69,24 +71,19 @@ class UserProfileApiView(APIView):
 
 
 class ActivateUserApiView(APIView):
-  def get_user(self, username):
-        try:
-            return User.objects.get(username=username)
-        except:
-            return Http404
-
-  def get(self, request, username, format=None):
-    user=self.get_user(username)
-    serializers=ActivateSerializer(user)
-    return Response(serializers.data)
-
   # update user to a valid user
-  def patch(self, request, username, format=None):
-    user=self.get_user(username=username)
+  def patch(self, request, id, format=None):
+    user=User.objects.get(id=id)
     serializers=ActivateSerializer(user, request.data, partial=True)
     if serializers.is_valid(raise_exception=True):
       serializers.save(is_active=True)
       valid_user=serializers.data 
-
-      return Response(valid_user)
+      response = {
+                "data": {
+                    "user": dict(valid_user),
+                    "status": "success",
+                    "message": "Your email has been successfully confirmed you can now log in",
+                }
+            }
+      return Response(response, status=status.HTTP_200_OK)
     return Response(status.errors, status=status.HTTP_400_BAD_REQUEST)
