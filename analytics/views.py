@@ -19,6 +19,7 @@ from .serializers import *
 
 # Create your views here.
 
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
@@ -29,27 +30,29 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         return data
 
+
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
 
 class RegisterApiView(generics.CreateAPIView):
-  serializer_class = SignUpSerializer
-  def post(self, request):
-    serializer = self.serializer_class(data=request.data)
-    if serializer.is_valid(raise_exception=True):
-      serializer.save()
-      user_data =serializer.data
-      response={
-        "data":{
-            "user":dict(user_data),
-            "status":"success",
-            "message":"user added successfully",
-        }
-      }
-      return Response(response, status=status.HTTP_201_CREATED)
-    else:
-      return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+    serializer_class = SignUpSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            user_data = serializer.data
+            response = {
+                "data": {
+                    "user": dict(user_data),
+                    "status": "success",
+                    "message": "user added successfully please check your email to activate your account",
+                }
+            }
+            return Response(response, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @permission_classes([IsAuthenticated])
@@ -59,8 +62,4 @@ class UserProfileApiView(APIView):
     def get(self, request, format=None):
         user = request.user
         serializers = UserSerializer(user, many=False)
-        return Response(serializers.data)    
-
-
-
-
+        return Response(serializers.data)
