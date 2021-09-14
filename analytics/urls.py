@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path,re_path
 from django.urls.resolvers import URLPattern
 from . import views
@@ -12,3 +14,6 @@ urlpatterns = [
   path('users/profile/',views.UserProfileApiView.as_view(),name='user-profile'),
   path('users/activate/<int:id>/',views.ActivateUserApiView.as_view(),name='activate-user'),
 ]
+
+if settings.DEBUG:
+    urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
