@@ -47,3 +47,8 @@ class SignUpSerializer(serializers.ModelSerializer):
           instance.is_active=False
           instance.save()   
           return instance
+
+class ActivateSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = User
+    fields = ['is_active']          

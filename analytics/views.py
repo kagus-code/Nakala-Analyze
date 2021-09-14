@@ -66,3 +66,27 @@ class UserProfileApiView(APIView):
         user = request.user
         serializers = UserSerializer(user, many=False)
         return Response(serializers.data)
+
+
+class ActivateUserApiView(APIView):
+  def get_user(self, username):
+        try:
+            return User.objects.get(username=username)
+        except:
+            return Http404
+
+  def get(self, request, username, format=None):
+    user=self.get_user(username)
+    serializers=ActivateSerializer(user)
+    return Response(serializers.data)
+
+  # update user to a valid user
+  def patch(self, request, username, format=None):
+    user=self.get_user(username=username)
+    serializers=ActivateSerializer(user, request.data, partial=True)
+    if serializers.is_valid(raise_exception=True):
+      serializers.save(is_active=True)
+      valid_user=serializers.data 
+
+      return Response(valid_user)
+    return Response(status.errors, status=status.HTTP_400_BAD_REQUEST)
