@@ -11,7 +11,7 @@ This is an API endpoint based on Django that allows a user to
 - Send email upon signup.
 - Validate email signup
 - Login using username & password.
-- Fetch data from a Postgres database.  data used `https://covid.ourworldindata.org/data/owid-covid-data.csv`
+- Fetch data from a Postgres database.  data used https://covid.ourworldindata.org/data/owid-covid-data.csv
 - Display the data by querying an API.
 - Sign-out
 
@@ -63,12 +63,21 @@ Create .env file and paste paste the following and fill  required fields:
 - Django REST Framework
 
 ## link to live site on heroku
-
+https://nakala-analyze.herokuapp.com/
 ## Support and contact details
 
 | Eston | ekagwima745@gmail.com |
 | ----- | --------------------- |
 
+## API ENDPOINTS
+ 1. api/users/register/
+    This endpoint allows you to sign up and recieve a confirmation email on sign up
+  2. api/users/login/
+    This endpoint allows you to log in and obtain an auth token only after confirming your email
+ 3. api/data/query/<id>/
+    This endpoint allows you to query the data by id
+ api/data/query/<iso_code>/
+    This end point allows you to query the data by iso_code
 ### License
 
 License
