@@ -1,6 +1,6 @@
 # Nakala Api
 
-#### This an API endpoint Based on Django , 15/09/2021
+#### This is an API endpoint Based on Django , 15/09/2021
 
 #### By **Eston Kagwima**
 
