@@ -119,3 +119,37 @@ class UploadDataApiView(generics.CreateAPIView):
         else:
             return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+
+class CovidDataAPIView(APIView):
+    def get(self, request, format=None):
+        all_data = CovidData.objects.all()
+        serializers = CovidDataSerializer(all_data, many=True)
+        return Response(serializers.data)
+
+
+
+
+class CovidDataAPIView(APIView):
+    def get_data(self, pk):
+        try:
+            return CovidData.objects.get(pk=pk)
+        except CovidData.DoesNotExist:
+            return Http404
+
+    def get(self, request, pk, format=None):
+        covid_data = self.get_data(pk)
+        serializers = CovidDataSerializer(covid_data)
+        return Response(serializers.data)
+
+
+class CovidDataByIsoAPIView(APIView):
+    serializer_class = CovidDataSerializer
+    def get(self,request,iso,format=None):
+        data = CovidData.objects.filter(iso_code=iso)
+        serializers=self.serializer_class(data, many=True)
+        return Response(serializers.data)
+
+
+

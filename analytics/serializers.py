@@ -58,3 +58,9 @@ class UploadSerializer(serializers.ModelSerializer):
   class Meta:
     model = Csv
     fields = ['file_name']      
+
+
+class CovidDataSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = CovidData
+    fields="__all__"  
