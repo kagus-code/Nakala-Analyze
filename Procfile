@@ -1,1 +1,1 @@
-web: gunicorn Nakala.wsgi
+web: gunicorn Nakala.wsgi --log-file -
