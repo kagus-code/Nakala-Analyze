@@ -34,11 +34,9 @@ class CovidData(models.Model):
     hosp_patients = models.FloatField(null=True, blank=True)
     hosp_patients_per_million = models.FloatField(null=True, blank=True)
     weekly_icu_admissions = models.FloatField(null=True, blank=True)
-    weekly_icu_admissions_per_million = models.FloatField(
-        null=True, blank=True)
+    weekly_icu_admissions_per_million = models.FloatField( null=True, blank=True)
     weekly_hosp_admissions = models.FloatField(null=True, blank=True)
-    weekly_hosp_admissions_per_million = models.FloatField(
-        null=True, blank=True)
+    weekly_hosp_admissions_per_million = models.FloatField( null=True, blank=True)
     new_tests = models.FloatField(null=True, blank=True)
     total_tests = models.FloatField(null=True, blank=True)
     total_tests_per_thousand = models.FloatField(null=True, blank=True)
@@ -56,11 +54,9 @@ class CovidData(models.Model):
     new_vaccinations_smoothed = models.FloatField(null=True, blank=True)
     total_vaccinations_per_hundred = models.FloatField(null=True, blank=True)
     people_vaccinated_per_hundred = models.FloatField(null=True, blank=True)
-    people_fully_vaccinated_per_hundred = models.FloatField(
-        null=True, blank=True)
+    people_fully_vaccinated_per_hundred = models.FloatField(null=True, blank=True)
     total_boosters_per_hundred = models.FloatField(null=True, blank=True)
-    new_vaccinations_smoothed_per_million = models.FloatField(
-        null=True, blank=True)
+    new_vaccinations_smoothed_per_million = models.FloatField(  null=True, blank=True)
     stringency_index = models.FloatField(null=True, blank=True)
     population = models.FloatField(null=True, blank=True)
     population_density = models.FloatField(null=True, blank=True)
