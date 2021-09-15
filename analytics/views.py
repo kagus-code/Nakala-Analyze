@@ -121,7 +121,7 @@ class UploadDataApiView(generics.CreateAPIView):
 
 
 
-
+@permission_classes([IsAuthenticated])
 class CovidDataAPIView(APIView):
     def get(self, request, format=None):
         all_data = CovidData.objects.all()
@@ -130,7 +130,7 @@ class CovidDataAPIView(APIView):
 
 
 
-
+@permission_classes([IsAuthenticated])
 class CovidDataAPIView(APIView):
     def get_data(self, pk):
         try:
@@ -143,7 +143,7 @@ class CovidDataAPIView(APIView):
         serializers = CovidDataSerializer(covid_data)
         return Response(serializers.data)
 
-
+@permission_classes([IsAuthenticated])
 class CovidDataByIsoAPIView(APIView):
     serializer_class = CovidDataSerializer
     def get(self,request,iso,format=None):
