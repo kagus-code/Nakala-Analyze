@@ -51,4 +51,10 @@ class SignUpSerializer(serializers.ModelSerializer):
 class ActivateSerializer(serializers.ModelSerializer):
   class Meta:
     model = User
-    fields = ['is_active']          
+    fields = ['is_active']      
+
+
+class UploadSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Csv
+    fields = ['file_name']      

@@ -1,3 +1,4 @@
+from os import name
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path,re_path
@@ -13,6 +14,7 @@ urlpatterns = [
   path('users/login/',views.MyTokenObtainPairView.as_view(),name='token_obtain_pair'),
   path('users/profile/',views.UserProfileApiView.as_view(),name='user-profile'),
   path('users/activate/<int:id>/',views.ActivateUserApiView.as_view(),name='activate-user'),
+  path('data/upload/', views.UploadDataApiView.as_view(), name="upload-data")
 ]
 
 if settings.DEBUG:

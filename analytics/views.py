@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from datetime import datetime
+from rest_framework.serializers import Serializer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -87,3 +88,34 @@ class ActivateUserApiView(APIView):
             }
       return Response(response, status=status.HTTP_200_OK)
     return Response(status.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+class UploadDataApiView(generics.CreateAPIView):
+    serializer_class=UploadSerializer
+    def post(self,request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            obj = Csv.objects.get(activated=False)
+            with open(obj.file_name.path, 'r',encoding='latin1') as f:
+                insert_count = CovidData.objects.from_csv(
+                    f,
+                    delimiter=",", 
+                    drop_constraints=True, 
+                    drop_indexes=True, 
+                    encoding="latin-1",
+                    ignore_conflicts=True
+                    )
+                print(f"{insert_count} records inserted")
+                Csv.objects.filter(activated=False).update(activated=True)
+                response = {
+                "data": {
+                    "status": "success",
+                    "message": (f"{insert_count} records inserted"),
+                }
+            }
+            return Response(response, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
